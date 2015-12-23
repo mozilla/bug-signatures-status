@@ -1,0 +1,30 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+*.sublime-*
+
+# NPM packages folder.
+node_modules/
+
+# Bower stuff.
+bower_components/
+
+# Do not commit source maps, they are too big.
+dist/bundle.js.map
