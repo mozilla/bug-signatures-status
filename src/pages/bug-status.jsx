@@ -20,11 +20,12 @@ const BugStatusContent = React.createClass({
             return <Alert bsStyle="warning">No data found for this bug. </Alert>;
         }
 
-        return bugState.signatures.map(signature => {
+        let sigs = bugState.signatures.map(signature => {
             let sigState = this.props.signatures[signature] || {};
             let productVersionCounts = this.props.productVersionCounts || {};
             return <Signature signature={signature} state={sigState} productVersionCounts={productVersionCounts} key={signature} />;
         });
+        return <div>{ sigs }</div>;
     }
 });
 
@@ -60,7 +61,7 @@ const BugStatusPage = React.createClass({
         return (
             <div>
                 <Panel header={header}>
-                    <BugStatusContent state={bugState} />
+                    <BugStatusContent state={bugState} signatures={this.props.signatures} productVersionCounts={this.props.productVersionCounts} />
                 </Panel>
                 <BugForm title="Check another bug?" bugNumber={bugNumber} />
             </div>
