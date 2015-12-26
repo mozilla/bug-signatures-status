@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Table } from 'react-bootstrap';
+import { Alert, Button, Table } from 'react-bootstrap';
 
 
 const SignatureTable = React.createClass({
@@ -51,6 +51,10 @@ const SignatureContent = React.createClass({
     render() {
         if (this.props.state.isFetching || this.props.productVersionCounts.isFetching) {
             return <Alert bsStyle="info">Fetching signature data... </Alert>;
+        }
+
+        if (this.props.state.didInvalidate) {
+            return <Alert bsStyle="danger">An error happened while fetching signature data. <Button bsStyle="warning">Retry</Button> </Alert>;
         }
 
         if (!this.props.state.data || !this.props.state.data.length) {

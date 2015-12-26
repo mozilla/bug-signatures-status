@@ -1,11 +1,12 @@
 import React from 'react';
-import { Alert, Panel, Table } from 'react-bootstrap';
+import { Alert, Button, Panel, Table } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 
-import { fetchBugSignatures, fetchBugTitle } from '../actions.jsx';
+import { changeBugNumber, fetchBugSignatures, fetchBugTitle } from '../actions.jsx';
 import BugForm from '../components/bug-form.jsx';
 import Signature from '../components/signature.jsx';
+import { BUGZILLA_BUG_URL } from '../constants.jsx';
 
 
 const BugStatusContent = React.createClass({
@@ -14,6 +15,15 @@ const BugStatusContent = React.createClass({
 
         if (!bugState || bugState.isFetching) {
             return <Alert bsStyle="info">Fetching bug data... </Alert>;
+        }
+
+        if (bugState.didInvalidate) {
+            return (
+                <Alert bsStyle="danger">
+                    An error happened while fetching bug data.
+                    <Button bsStyle="warning" onClick={this.props.retryFetchingBug}>Retry</Button>
+                </Alert>
+            );
         }
 
         if (!bugState.signatures.length) {
@@ -43,9 +53,15 @@ const BugStatusPage = React.createClass({
         let bug = props.params.id;
 
         if (!props.bugs[bug]) {
+            props.dispatch(changeBugNumber(bug));
             props.dispatch(fetchBugSignatures(bug));
             props.dispatch(fetchBugTitle(bug));
         }
+    },
+
+    retryFetchingBug(e) {
+        e.preventDefault();
+        this.props.dispatch(fetchBugSignatures(this.props.params.id));
     },
 
     render() {
@@ -58,12 +74,18 @@ const BugStatusPage = React.createClass({
             header += ` - ${bugState.title}`;
         }
 
+        header = <a href={ BUGZILLA_BUG_URL + bugNumber }>{header}</a>;
+
         return (
             <div>
                 <Panel header={header}>
-                    <BugStatusContent state={bugState} signatures={this.props.signatures} productVersionCounts={this.props.productVersionCounts} />
+                    <BugStatusContent
+                        state={bugState}
+                        signatures={this.props.signatures}
+                        productVersionCounts={this.props.productVersionCounts}
+                        retryFetchingBug={this.retryFetchingBug}
+                    />
                 </Panel>
-                <BugForm title="Check another bug?" bugNumber={bugNumber} />
             </div>
         );
     }

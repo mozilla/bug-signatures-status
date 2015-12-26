@@ -14,7 +14,6 @@ import { fetchTotals } from './actions.jsx';
 
 import Layout from './pages/layout.jsx';
 import HomePage from './pages/home.jsx';
-import DocPage from './pages/doc.jsx';
 import BugStatusPage from './pages/bug-status.jsx';
 
 
@@ -36,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <Route path="/" component={Layout}>
                     <IndexRoute component={HomePage} />
                     <Route path="bug/:id" component={BugStatusPage} />
-                    <Route path="doc" component={DocPage} />
                 </Route>
             </Router>
         </Provider>

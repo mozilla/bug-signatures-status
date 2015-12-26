@@ -1,0 +1,24 @@
+<p>
+    This tool allows you to verify if a bug related to crashes is still
+    relevant or not.
+</p>
+<p>
+    This is mostly useful for people working on Mozilla products. It uses data from <a href="https://bugzilla.mozilla.org">bugzilla.mozilla.org</a> and <a href="https://crash-stats.mozilla.com">crash-stats.mozilla.com</a>.
+</p>
+<p>
+    When you check a bug, this tool will first fetch all the signatures
+    associated to that bug from the crash-stats API. Then, for each signature,
+    it will fetch the products and versions the signature appears on, count those
+    occurrences and will compare that to the total number of crashes for
+    said product and version.
+</p>
+<p>
+    For each signature, this tool will show a table containing 5 columns:
+</p>
+<ul>
+    <li><strong>Product</strong>: the name of the product</li>
+    <li><strong>Version</strong>: the version of the product</li>
+    <li><strong>Percentage</strong>: percentage of crashes with this signature over all crashes with the same product and version</li>
+    <li><strong>Count</strong>: count of crashes with this signature</li>
+    <li><strong>Total</strong>: count of crashes for the product and version</li>
+</ul>

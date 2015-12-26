@@ -19,24 +19,20 @@ const BugForm = React.createClass({
 
     render() {
         return (
-            <Panel header={this.props.title}>
-                <form>
-                    <Col xs={14} md={11}>
-                        <Input
-                            type="text"
-                            ref="bugnumber"
-                            defaultValue={this.props.bugNumber}
-                            addonBefore="Bug"
-                            placeholder="123456789"
-                        />
-                    </Col>
-                    <Col xs={2} md={1}>
-                        <ButtonInput type="submit" value="Check" bsStyle="primary" onClick={this.click} />
-                    </Col>
-                </form>
-            </Panel>
+            <div>
+                <Input
+                    type="text"
+                    ref="bugnumber"
+                    defaultValue={this.props.bugNumber}
+                    addonBefore="Bug"
+                    placeholder="123456789"
+                />
+                {' '}
+                <ButtonInput type="submit" value="Check" bsStyle="primary" onClick={this.click} />
+            </div>
         );
     }
 });
+
 
 export default BugForm;

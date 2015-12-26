@@ -12,18 +12,24 @@ export const RECEIVE_BUG_TITLE = 'RECEIVE_BUG_TITLE';
 export const RECEIVE_SIGNATURE_STATUS = 'RECEIVE_SIGNATURE_STATUS';
 export const RECEIVE_PROD_VER_COUNT = 'RECEIVE_PROD_VER_COUNT';
 
+export const ERROR_BUG_SIGNATURES = 'ERROR_BUG_SIGNATURES';
+export const ERROR_SIGNATURE_STATUS = 'ERROR_SIGNATURE_STATUS';
+export const ERROR_PROD_VER_COUNT = 'ERROR_PROD_VER_COUNT';
+
+export const CHANGE_BUG_NUMBER = 'CHANGE_BUG_NUMBER';
+
+
+export function changeBugNumber(number) {
+    return {
+        type: CHANGE_BUG_NUMBER,
+        number
+    };
+}
 
 export function requestBugSignatures(number) {
     return {
         type: FETCH_BUG_SIGNATURES,
         number
-    };
-}
-
-export function requestSignatureStatus(signature) {
-    return {
-        type: FETCH_SIGNATURE_STATUS,
-        signature
     };
 }
 
@@ -36,16 +42,6 @@ export function receiveBugSignatures(number, json) {
     };
 }
 
-export function receiveSignatureStatus(signature, json) {
-    return {
-        type: RECEIVE_SIGNATURE_STATUS,
-        signature,
-        data: json.facets.product,
-        receivedAt: Date.now()
-    };
-}
-
-
 export function fetchBugSignatures(number) {
     return dispatch => {
         dispatch(requestBugSignatures(number));
@@ -55,7 +51,31 @@ export function fetchBugSignatures(number) {
         .then(json => {
             dispatch(receiveBugSignatures(number, json));
             json.hits.map(hit => dispatch(fetchSignatureStatus(hit.signature)));
-        });
+        })
+        .catch(ex => dispatch(errorBugSignatures(number)));
+    };
+}
+
+export function errorBugSignatures(number) {
+    return {
+        type: ERROR_BUG_SIGNATURES,
+        number
+    };
+}
+
+export function requestSignatureStatus(signature) {
+    return {
+        type: FETCH_SIGNATURE_STATUS,
+        signature
+    };
+}
+
+export function receiveSignatureStatus(signature, json) {
+    return {
+        type: RECEIVE_SIGNATURE_STATUS,
+        signature,
+        data: json.facets.product,
+        receivedAt: Date.now()
     };
 }
 
@@ -67,7 +87,15 @@ export function fetchSignatureStatus(signature) {
         .then(response => response.json())
         .then(json => {
             dispatch(receiveSignatureStatus(signature, json));
-        });
+        })
+        .catch(ex => dispatch(errorSignatureStatus(signature)));
+    };
+}
+
+export function errorSignatureStatus(signature) {
+    return {
+        type: ERROR_SIGNATURE_STATUS,
+        signature
     };
 }
 
@@ -97,10 +125,22 @@ export function fetchTotals() {
         dispatch(requestTotals());
 
         return fetch(SUPER_SEARCH_API_URI + '?_results_number=0&_aggs.product=version')
-        .then(response => response.json())
+        .then(response => {
+            if (response.status >= 400) {
+                dispatch(errorTotals());
+            }
+            return response.json();
+        })
         .then(json => {
             dispatch(receiveTotals(json));
-        });
+        })
+        .catch(ex => dispatch(errorTotals()));
+    };
+}
+
+export function errorTotals() {
+    return {
+        type: ERROR_PROD_VER_COUNT
     };
 }
 

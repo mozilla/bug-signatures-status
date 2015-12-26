@@ -25,6 +25,10 @@ module.exports = {
                 test: /\.css$/,
                 loader: 'style!css'
             },
+            {
+                test: /\.html$/,
+                loader: 'html'
+            },
             { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
             { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
@@ -33,12 +37,12 @@ module.exports = {
     },
     plugins: [
         new webpack.NoErrorsPlugin(),
-        // new webpack.DefinePlugin({
-        //     'process.env': {
-        //         // This has effect on the react lib size
-        //         'NODE_ENV': JSON.stringify('production'),
-        //     },
-        // }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                // This has effect on the react lib size
+                'NODE_ENV': JSON.stringify('production'),
+            },
+        }),
         new webpack.optimize.UglifyJsPlugin({
             minimize: true,
             compressor: {
