@@ -1,7 +1,8 @@
 import documentationContent from '../assets/html/documentation.html';
 
 import React from 'react';
-import { PageHeader } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { PageHeader, Panel } from 'react-bootstrap';
 
 import BugForm from '../components/bug-form.jsx';
 
@@ -13,10 +14,20 @@ const HomePage = React.createClass({
                 <PageHeader>
                     Bug Signatures Status <small>User documentation</small>
                 </PageHeader>
-                <article dangerouslySetInnerHTML={{__html: documentationContent}} />
+                <article dangerouslySetInnerHTML={ {__html: documentationContent} } />
+                <br />
+                <Panel header="Check a bug now">
+                    <BugForm bugNumber={this.props.latestBugNumber} />
+                </Panel>
             </div>
         );
     }
 });
 
-export default HomePage;
+function select(state) {
+    return {
+        latestBugNumber: state.latestBugNumber
+    }
+}
+
+export default connect(select)(HomePage);

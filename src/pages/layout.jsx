@@ -37,13 +37,13 @@ const Footer = React.createClass({
     render() {
         return (
             <p className="text-center">
-                Made by&nbsp;
+                Made by {' '}
                 <a href="http://adrian.gaudebert.fr/home_en">
                     <span className="glyphicon glyphicon-user" /> Adrian
-                </a> -&nbsp;
+                </a> - {' '}
                 <a href="https://github.com/adngdb/bug-signatures-status">
                     <span className="glyphicon glyphicon-education" /> Source code
-                </a> -&nbsp;
+                </a> - {' '}
                 <a href="https://crash-stats.mozilla.com/api/">
                     <span className="glyphicon glyphicon-cloud-download" /> Data source
                 </a>
