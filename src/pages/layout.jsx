@@ -41,7 +41,7 @@ const Footer = React.createClass({
                 <a href="http://adrian.gaudebert.fr/home_en">
                     <span className="glyphicon glyphicon-user" /> Adrian
                 </a> -&nbsp;
-                <a href="https://github.com/AdrianGaudebert/bug-signatures-status">
+                <a href="https://github.com/adngdb/bug-signatures-status">
                     <span className="glyphicon glyphicon-education" /> Source code
                 </a> -&nbsp;
                 <a href="https://crash-stats.mozilla.com/api/">
