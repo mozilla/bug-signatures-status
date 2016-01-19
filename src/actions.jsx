@@ -83,7 +83,7 @@ export function fetchSignatureStatus(signature) {
     return dispatch => {
         dispatch(requestSignatureStatus(signature));
 
-        return fetch(SUPER_SEARCH_API_URI + '?_results_number=0&_aggs.product=version&signature=' + encodeURI(signature))
+        return fetch(SUPER_SEARCH_API_URI + '?_results_number=0&_aggs.product=version&signature=' + encodeURI('=' + signature))
         .then(response => response.json())
         .then(json => {
             dispatch(receiveSignatureStatus(signature, json));
