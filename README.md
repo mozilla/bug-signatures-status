@@ -4,7 +4,7 @@ A tool to check if signatures associated with a bug are still relevant.
 Fetches data from [crash-stats.mozilla.com](https://crash-stats.mozilla.com)
 and [bugzilla.mozilla.org](https://bugzilla.mozilla.org). Mostly useful to Mozilla's crash hunters.
 
-Currently deployed using github pages: [adngdb.github.io/bug-signatures-status/](http://adngdb.github.io/bug-signatures-status/)
+Currently deployed using github pages: [mozilla.github.io/bug-signatures-status/](http://mozilla.github.io/bug-signatures-status/)
 
 ## Technologies
 
