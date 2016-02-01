@@ -8,6 +8,18 @@ import BugForm from '../components/bug-form.jsx';
 
 
 const HomePage = React.createClass({
+    componentWillMount() {
+        this.trackPageView();
+    },
+
+    componentWillReceiveProps(nextProps) {
+        this.trackPageView();
+    },
+
+    trackPageView() {
+        ga('send', 'pageview', '/');
+    },
+
     render() {
         return (
             <div>

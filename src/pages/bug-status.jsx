@@ -43,10 +43,12 @@ const BugStatusContent = React.createClass({
 const BugStatusPage = React.createClass({
     componentWillMount() {
         this.checkBug(this.props);
+        this.trackPageView(this.props.params.id);
     },
 
     componentWillReceiveProps(nextProps) {
         this.checkBug(nextProps);
+        this.trackPageView(nextProps.params.id);
     },
 
     checkBug(props) {
@@ -57,6 +59,10 @@ const BugStatusPage = React.createClass({
             props.dispatch(fetchBugSignatures(bug));
             props.dispatch(fetchBugTitle(bug));
         }
+    },
+
+    trackPageView(bug) {
+        ga('send', 'pageview', '/bug/' + bug);
     },
 
     retryFetchingBug(e) {
