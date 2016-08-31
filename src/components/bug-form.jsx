@@ -19,17 +19,18 @@ const BugForm = React.createClass({
 
     render() {
         return (
-            <div>
+            <form onSubmit={this.click}>
                 <Input
                     type="text"
                     ref="bugnumber"
                     defaultValue={this.props.bugNumber}
                     addonBefore="Bug"
                     placeholder="123456789"
+                    autoFocus="true"
                 />
                 {' '}
                 <ButtonInput type="submit" value="Check" bsStyle="primary" onClick={this.click} />
-            </div>
+            </form>
         );
     }
 });
